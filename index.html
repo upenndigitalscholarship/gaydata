@@ -19,24 +19,19 @@ add geolocation  -->
         <p>
             <label for="location">Share location?</label>
             <input type="checkbox" id="location" name="location" value="">
-            <input type="hidden" id="latlong" name="latlong" value=""> 
+            <input type="hidden" id="latlong" name="latlong" value="">
         </p>
         <p>
 
             <label>name of business<input type="text" name="nameOfBusiness" /></label>
         </p>
         <p>
-            <label>text of advertisement<input type="email" name="textOfAdvertisement" /></label>
+            <label>text of advertisement<input type="text" name="textOfAdvertisement" /></label>
         </p>
         <p>
-            <label>notes<input type="email" name="notes" /></label>
+            <label>notes<textarea name="notes"></textarea></label>
         </p>
-        <p>
-            <label>Your Role: <select name="role[]" multiple>
-                    <option value="leader">Leader</option>
-                    <option value="follower">Follower</option>
-                </select></label>
-        </p>
+
         <p>
             <label>Message: <textarea name="message"></textarea></label>
         </p>
@@ -45,23 +40,23 @@ add geolocation  -->
         </p>
     </form>
 
-<script>
-let allowLocation = false;
+    <script>
+        let allowLocation = false;
 
-const locationCheckBox = document.getElementById('location')
-const latlong = document.getElementById('latlong')
+        const locationCheckBox = document.getElementById('location')
+        const latlong = document.getElementById('latlong')
 
-locationCheckBox.addEventListener('change', (event) => {
-  if (event.currentTarget.checked) {
-    allowLocation = true
-    navigator.geolocation.getCurrentPosition((position) => {
-        latlong.value = `${position.coords.latitude};${position.coords.longitude}`
+        locationCheckBox.addEventListener('change', (event) => {
+            if (event.currentTarget.checked) {
+                allowLocation = true
+                navigator.geolocation.getCurrentPosition((position) => {
+                    latlong.value = `${position.coords.latitude};${position.coords.longitude}`
+                })
+            } else {
+                allowLocation = false
+            }
         })
-  } else {
-    allowLocation = false
-  }
-})
-</script>
+    </script>
 
 </body>
 
