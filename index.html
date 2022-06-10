@@ -19,6 +19,7 @@ add geolocation  -->
         <p>
             <label for="location">Share location?</label>
             <input type="checkbox" id="location" name="location" value="">
+            <input type="hidden" id="latlong" name="latlong" value=""> 
         </p>
         <p>
 
@@ -45,19 +46,21 @@ add geolocation  -->
     </form>
 
 <script>
-const getLocation = () => {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-            return { 
-                latitute: position.coords.latitude, 
-                longitude: position.coords.longitude
-            }
-        })
-    } else {
-        return "Geolocation is not supported by this browser.";
-    }
-}
+let allowLocation = false;
 
+const locationCheckBox = document.getElementById('location')
+const latlong = document.getElementById('latlong')
+
+locationCheckBox.addEventListener('change', (event) => {
+  if (event.currentTarget.checked) {
+    allowLocation = true
+    navigator.geolocation.getCurrentPosition((position) => {
+        latlong.value = `${position.coords.latitude};${position.coords.longitude}`
+        })
+  } else {
+    allowLocation = false
+  }
+})
 </script>
 
 </body>
