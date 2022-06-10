@@ -6,11 +6,22 @@
 </head>
 
 <body>
-<!-- add image field 
+    <!-- add image field 
 add geolocation  -->
 
-    <form name="contact" method="POST" data-netlify="true">
+    <form name="contact" method="POST" data-netlify="true" enctype="multipart/form-data">
         <p>
+            <label>
+                <span>Photo:</span>
+                <input name="file" type="file" />
+            </label>
+        </p>
+        <p>
+            <label for="location">Share location?</label>
+            <input type="checkbox" id="location" name="location" value="">
+        </p>
+        <p>
+
             <label>name of business<input type="text" name="nameOfBusiness" /></label>
         </p>
         <p>
@@ -32,6 +43,22 @@ add geolocation  -->
             <button type="submit">Send</button>
         </p>
     </form>
+
+<script>
+const getLocation = () => {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition((position) => {
+            return { 
+                latitute: position.coords.latitude, 
+                longitude: position.coords.longitude
+            }
+        })
+    } else {
+        return "Geolocation is not supported by this browser.";
+    }
+}
+
+</script>
 
 </body>
 
