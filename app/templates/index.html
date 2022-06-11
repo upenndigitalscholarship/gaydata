@@ -6,8 +6,6 @@
 </head>
 
 <body>
-    <!-- add image field 
-add geolocation  -->
 
     <form name="gaydata" method="POST" data-netlify="true" enctype="multipart/form-data">
         <p>
@@ -19,7 +17,7 @@ add geolocation  -->
         <p>
             <label for="location">Share location?</label>
             <input type="checkbox" id="location" name="location" value="">
-            <input type="hidden" id="latlong" name="latlong" value="">
+            <input type="hidden" id="latlong" name="latlong" value="nodata">
         </p>
         <p>
 
@@ -54,6 +52,7 @@ add geolocation  -->
                 })
             } else {
                 allowLocation = false
+                latlong.value = 'nodata'
             }
         })
     </script>
