@@ -1,0 +1,11 @@
+[Unit]
+Description=gunicorn daemon
+After=network.target
+
+[Service]
+User=www-data
+WorkingDirectory=/srv/gaydata
+ExecStart=/srv/gaydata/venv/bin/gunicorn -c gunicorn_conf.py app.main:app
+
+[Install]
+WantedBy=multi-user.target
