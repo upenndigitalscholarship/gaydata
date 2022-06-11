@@ -23,5 +23,14 @@ async def index(request: Request):
 
 @app.post("/")
 async def form(nameOfBusiness: str = Form(''),latlong:str = Form(''), textOfAdvertisement: str= Form(''),notes:str =Form(''),message:str=Form(''), file: Union[UploadFile, None] = None):
-    srsly.write_json((data_dir / 'is_data.json'),{"nameOfBusiness": nameOfBusiness, "latlong":latlong, "textOfAdvertisement": textOfAdvertisement, "notes":notes, "message":message, "filename":file.filename})
-    return {"message": "got it!"}
+    if file.filename != "":
+        contents = await file.read()
+        (images_dir / file.filename).write_bytes(contents)
+    data = {"nameOfBusiness": nameOfBusiness, 
+            "latlong":latlong, 
+            "textOfAdvertisement": textOfAdvertisement, 
+            "notes":notes,
+            "message":message, 
+            "filename":file.filename}
+    srsly.write_json((data_dir / 'is_data.json'), data)
+    return data
