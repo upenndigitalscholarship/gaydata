@@ -16,6 +16,7 @@ assert images_dir.exists()
 
 app = FastAPI()
 app.mount("/assets", StaticFiles(directory="app/assets"), name="assets")
+app.mount("/images", StaticFiles(directory="app/data/images"), name="images")
 
 templates = Jinja2Templates(directory="app/templates")
 
@@ -34,7 +35,15 @@ async def form(request:Request, myName:str = Form(''),nameOfBusiness: str = Form
             "textOfAdvertisement": textOfAdvertisement, 
             "notes":notes,
             "message":message, 
-            "filename":file.filename}
+            "filename": datetime.now().strftime("%Y-%m-%d-%H:%M:%S") +"_" + file.filename}
     srsly.write_json((data_dir / f'{current_counter}_{datetime.now().strftime("%Y-%m-%d-%H:%M:%S")}.json'), data)
     data["request"] = request
     return templates.TemplateResponse("success.html", data)
+
+@app.get('/results')
+async def results(request:Request): 
+    results = []
+    for d in data_dir.iterdir():
+        a = srsly.read_json(d)
+        results.append(a)
+    return templates.TemplateResponse("results.html", {"results":results, "request":request})

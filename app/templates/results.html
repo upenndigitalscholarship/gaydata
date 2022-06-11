@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% for result in results %}
+
+<div class="card" style="width: 18rem;">
+  <img src="../images/{{ result.filename }}" class="card-img-top" alt="...">
+  <div class="card-body">
+    <h5 class="card-title">{{ result.nameOfBusiness }}</h5>
+    <p class="card-text">
+      <p>My name: {{ result.myName }}</p>
+      <p>Lat/Long: {{ result.latlong }} </p>
+      <p>Advert text: {{ result.textOfAdvertisement }}</p>
+      <p>Notes: {{ result.notes }}</p>
+      <p>Message: {{ result.message }}</p>
+    </p>
+  </div>
+</div>
+
+{% endfor %}
+
+
+{% endblock%}
