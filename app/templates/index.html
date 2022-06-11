@@ -1,40 +1,42 @@
 {% extends 'base.html' %}
 {% block content %}
-    <form name="gaydata" method="POST" data-netlify="true" enctype="multipart/form-data">
-        <p>
-            <label>
-                <span>Photo:</span>
+    <form name="gaydata" method="POST" enctype="multipart/form-data">
+        <div class="mb-3">
+            <label class="form-label">Photo:</label>
                 <input name="file" type="file" />
-            </label>
-        </p>
-        <p>
-            <label for="location">Share location?</label>
+        
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="location">Share location?</label>
             <input type="checkbox" id="location" name="location" value="">
             <input type="hidden" id="latlong" name="latlong" value="nodata">
-        </p>
-         <p>
+        </div>
+         <div class="mb-3">
 
-            <label>my name<input type="text" name="myName" /></label>
-        </p>
 
-        <p>
+            <input type="text" name="myName" placeholder="my name" />
+        </div>
 
-            <label>name of business<input type="text" name="nameOfBusiness" /></label>
-        </p>
-        <p>
-            <label>text of advertisement<input type="text" name="textOfAdvertisement" /></label>
-        </p>
-        <p>
-            <label>notes<textarea name="notes"></textarea></label>
-        </p>
+        <div class="mb-3">
 
-        <p>
-            <label>Message: <textarea name="message"></textarea></label>
-        </p>
-        <p>
+
+            <input type="text" name="nameOfBusiness" placeholder="name of business" />
+        </div>
+        <div class="mb-3">
+
+            <input type="text" name="textOfAdvertisement" placeholder="text of advertisement"/>
+        </div>
+        <div class="mb-3">
+            <textarea name="notes" placeholder="notes"></textarea>
+        </div>
+
+        <div class="mb-3">
+            <textarea name="message" placeholder="message"></textarea>
+        </div>
+        <div class="mb-3">
             <button type="submit">Send</button>
-        </p>
-    </form>
+        </div>
+</form>
 
     <script>
         let allowLocation = false;
