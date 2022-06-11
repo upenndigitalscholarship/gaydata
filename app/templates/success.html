@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Pride Form</title>
-</head>
-
-<body>
-
+{% extends 'base.html' %}
+{% block content %}
 Thank you for your submission. <a href="../">click here to return to the form</a> 
 <br>
 {{ nameOfBusiness }} <br>
@@ -16,6 +9,4 @@ Thank you for your submission. <a href="../">click here to return to the form</a
 {{ message }}  <br>
 {{ filename }} <br>
 
-</body>
-
-</html>
+{% endblock %}

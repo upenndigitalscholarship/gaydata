@@ -1,12 +1,5 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Pride Form</title>
-</head>
-
-<body>
-
+{% extends 'base.html' %}
+{% block content %}
     <form name="gaydata" method="POST" data-netlify="true" enctype="multipart/form-data">
         <p>
             <label>
@@ -61,7 +54,4 @@
             }
         })
     </script>
-
-</body>
-
-</html>
+{% endblock %}
