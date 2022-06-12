@@ -1,4 +1,5 @@
 import srsly
+import filetype
 from datetime import datetime
 from typing import Union
 from pathlib import Path
@@ -26,16 +27,20 @@ async def index(request: Request):
 
 @app.post("/")
 async def form(request:Request, myName:str = Form(''),nameOfBusiness: str = Form(''),latlong:str = Form(''), textOfAdvertisement: str= Form(''),notes:str =Form(''),message:str=Form(''), file: Union[UploadFile, None] = None):
+    valid_file = "no image"
     if file.filename != "":
         contents = await file.read()
-        (images_dir / (datetime.now().strftime("%Y-%m-%d-%H:%M:%S") +"_" + file.filename)).write_bytes(contents)
+        kind = filetype.guess(contents)
+        if kind.mime == 'image/jpeg' or kind.mime == 'image/png':
+            valid_file = datetime.now().strftime("%Y-%m-%d-%H:%M:%S") +"_" + file.filename
+            (images_dir / valid_file).write_bytes(contents)
     data = {"nameOfBusiness": nameOfBusiness, 
             "myName":myName,
             "latlong":latlong, 
             "textOfAdvertisement": textOfAdvertisement, 
             "notes":notes,
-            "message":message, 
-            "filename": datetime.now().strftime("%Y-%m-%d-%H:%M:%S") +"_" + file.filename}
+            "message":message,
+            "filename": valid_file}
     srsly.write_json((data_dir / f'{current_counter}_{datetime.now().strftime("%Y-%m-%d-%H:%M:%S")}.json'), data)
     data["request"] = request
     return templates.TemplateResponse("success.html", data)
@@ -47,3 +52,11 @@ async def results(request:Request):
         a = srsly.read_json(d)
         results.append(a)
     return templates.TemplateResponse("results.html", {"results":results, "request":request})
+
+@app.get('/data')
+async def results(request:Request): 
+    results = []
+    for d in data_dir.iterdir():
+        a = srsly.read_json(d)
+        results.append(a)
+    return results
