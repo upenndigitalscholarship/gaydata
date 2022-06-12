@@ -21,4 +21,5 @@ Web server: is nginx with certbot for HTTPS.
 Application server: is gunicorn running as as a systemd service.  To restart the app, `service gaydata restart`
 Logs live in `/srv/gaydata` as `error.log` and `access.log`
 API docs: https://gaydata.apjan.co/docs
-
+See current posts: https://gaydata.apjan.co/results
+Get the results as json: https://gaydata.apjan.co/data  
